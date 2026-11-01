@@ -1,77 +1,391 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>GeoTrack</title>
-  <meta name="description" content="Record, view and export your own GPS tracks in the browser. Data stays on your device.">
-  <meta name="theme-color" content="#0f172a">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%2322c55e' d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/></svg>">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="map" aria-label="Map"></div>
-
-  <aside id="panel">
-    <header class="panel-head">
-      <h1>GeoTrack</h1>
-      <span id="status" class="status idle">Idle</span>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="TrackFlow is the multi-asset fleet intelligence platform for real-time tracking, routing, telematics, safety, compliance, and enterprise operations."
+    />
+    <title>TrackFlow | Fleet Intelligence Platform</title>
+    <meta name="theme-color" content="#091b2a" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <div class="brand" aria-label="TrackFlow home">
+          <span class="brand-mark" aria-hidden="true">TF</span>
+          <span>TrackFlow</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#platform">Platform</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#integrations">Integrations</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="link-ghost" href="#pricing">Pricing</a>
+          <a class="btn btn-primary" href="#book-demo">Book demo</a>
+        </div>
+      </div>
     </header>
 
-    <section class="controls">
-      <button id="btn-start" class="btn primary">Start</button>
-      <button id="btn-pause" class="btn" disabled>Pause</button>
-      <button id="btn-stop" class="btn danger" disabled>Stop &amp; save</button>
-    </section>
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Multi-asset fleet intelligence</span>
+            <h1>Real-time tracking for every vehicle, trailer, driver, and job site.</h1>
+            <p>
+              TrackFlow unifies GPS telemetry, geofences, dispatch, diagnostics, driver behavior,
+              compliance, maintenance, and AI-powered safety into a single operating view.
+            </p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#book-demo">Get started</a>
+              <a class="btn btn-secondary" href="#platform">Explore features</a>
+            </div>
+            <ul class="hero-metrics" aria-label="Key business metrics">
+              <li><strong>99.98%</strong><span>Platform uptime</span></li>
+              <li><strong>5M+</strong><span>Live telemetry points / day</span></li>
+              <li><strong>24/7</strong><span>Safety alerts</span></li>
+            </ul>
+          </div>
 
-    <section class="stats" aria-live="polite">
-      <div><span class="label">Distance</span><span id="s-dist" class="value">0.00 km</span></div>
-      <div><span class="label">Duration</span><span id="s-time" class="value">00:00:00</span></div>
-      <div><span class="label">Speed</span><span id="s-speed" class="value">–</span></div>
-      <div><span class="label">Avg speed</span><span id="s-avg" class="value">–</span></div>
-      <div><span class="label">Altitude</span><span id="s-alt" class="value">–</span></div>
-      <div><span class="label">Accuracy</span><span id="s-acc" class="value">–</span></div>
-      <div class="wide"><span class="label">Position</span><span id="s-pos" class="value mono">–</span></div>
-    </section>
+          <div class="hero-panel" aria-label="Platform overview panel">
+            <div class="status-row">
+              <span class="live-pill">Live</span>
+              <span class="muted">Fleet status · 184 assets</span>
+            </div>
+            <div class="dashboard-card">
+              <div class="card-head">
+                <span>Dispatch map</span>
+                <span class="chip success">On time</span>
+              </div>
+              <div class="map-surface">
+                <div class="route route-a"></div>
+                <div class="route route-b"></div>
+                <div class="asset a"></div>
+                <div class="asset b"></div>
+                <div class="asset c"></div>
+                <div class="poi poi-1"></div>
+                <div class="poi poi-2"></div>
+                <div class="poi poi-3"></div>
+              </div>
+            </div>
+            <div class="mini-stats">
+              <div>
+                <span class="label">Avg ETAs</span>
+                <strong>18 min</strong>
+              </div>
+              <div>
+                <span class="label">Alerts</span>
+                <strong>4 active</strong>
+              </div>
+              <div>
+                <span class="label">Efficiency</span>
+                <strong>+22%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <details class="settings">
-      <summary>Settings</summary>
-      <label class="row"><input type="checkbox" id="opt-follow" checked> Keep map centered on me</label>
-      <label class="row"><input type="checkbox" id="opt-wake" checked> Keep screen awake while tracking</label>
-      <label class="row"><input type="checkbox" id="opt-imperial"> Imperial units (mi, mph, ft)</label>
-      <label class="row col">
-        <span>Ignore fixes worse than <b id="acc-val">50</b> m</span>
-        <input type="range" id="opt-acc" min="10" max="500" step="10" value="50">
-      </label>
-      <label class="row col">
-        <span>Minimum movement between points <b id="move-val">3</b> m</span>
-        <input type="range" id="opt-move" min="0" max="50" step="1" value="3">
-      </label>
-    </details>
+      <section class="logo-bar">
+        <div class="container logo-row">
+          <span>Used across logistics, field service, transport, utilities, and construction</span>
+        </div>
+      </section>
 
-    <section class="tracks">
-      <div class="tracks-head">
-        <h2>Saved tracks</h2>
-        <label class="btn small" title="Import a GPX or GeoJSON file">
-          Import<input type="file" id="file-import" accept=".gpx,.geojson,.json,application/gpx+xml,application/geo+json" hidden>
-        </label>
+      <section id="platform" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Core platform</span>
+            <h2>Everything your fleet needs to move, monitor, and optimize.</h2>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="icon">◎</div>
+              <h3>Real-Time Tracking &amp; Spatial Monitoring</h3>
+              <ul>
+                <li>Live telemetry with breadcrumb trails, speed, heading, and replay</li>
+                <li>Geofencing with circular, polygon, and corridor zones</li>
+                <li>POI tagging for warehouses, drop-offs, and restricted areas</li>
+                <li>Multi-asset visibility across powered, unpowered, and personnel assets</li>
+              </ul>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon">↗</div>
+              <h3>Route Optimization &amp; Smart Dispatching</h3>
+              <ul>
+                <li>Dynamic route planning with live traffic, weather, and vehicle constraints</li>
+                <li>Closest-asset selection for emergency and priority work orders</li>
+                <li>ETA updates and customer-facing public tracking links</li>
+              </ul>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon">⌁</div>
+              <h3>Sensor &amp; Telematics Integration</h3>
+              <ul>
+                <li>OBD-II / CAN bus diagnostics and fault monitoring</li>
+                <li>Cold-chain environmental alerts for temperature and humidity</li>
+                <li>PTO and auxiliary sensor events for equipment workflows</li>
+                <li>TPMS fleet safety monitoring</li>
+              </ul>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon">⚑</div>
+              <h3>Safety &amp; Driver Behavior Analytics</h3>
+              <ul>
+                <li>Driver scorecards for harsh events, speeding, and idling</li>
+                <li>AI dashcam event capture with collision and fatigue detection</li>
+                <li>In-cab alerts to coach risky driver behavior in real time</li>
+              </ul>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon">🛡</div>
+              <h3>Security &amp; Asset Protection</h3>
+              <ul>
+                <li>Remote immobilization, tow/tilt alerts, and unauthorized movement detection</li>
+                <li>Tamper and jamming notifications for vulnerable devices</li>
+                <li>High-frequency recovery mode for stolen assets</li>
+              </ul>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon">✓</div>
+              <h3>Compliance &amp; Administrative Controls</h3>
+              <ul>
+                <li>ELD / HOS tracking for FMCSA workloads</li>
+                <li>IFTA tax reporting and digital DVIR workflow automation</li>
+                <li>Regional and fleet-level access rules and audit trails</li>
+              </ul>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon">⚙</div>
+              <h3>Maintenance &amp; Asset Lifecycle</h3>
+              <ul>
+                <li>Preventive service scheduling based on mileage, hours, and timing</li>
+                <li>Work order records, failure tracking, and cost management</li>
+                <li>Total cost of ownership visibility across the fleet</li>
+              </ul>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon">▣</div>
+              <h3>Enterprise Analytics &amp; Integrations</h3>
+              <ul>
+                <li>Custom BI dashboards for utilization, fuel, stops, and overhead</li>
+                <li>Open APIs and webhooks for ERP, CRM, and FSM systems</li>
+                <li>RBAC with region, sub-fleet, and role-based permissions</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow" class="section alt">
+        <div class="container two-col">
+          <div>
+            <span class="eyebrow">Operating model</span>
+            <h2>Built for fleet operators, dispatch teams, and field service leaders.</h2>
+            <p>
+              TrackFlow gives dispatchers full operational awareness, helps managers reduce waste,
+              and gives drivers clearer task visibility without adding friction.
+            </p>
+          </div>
+
+          <div class="stack">
+            <div class="stack-card">
+              <strong>1. Monitor</strong>
+              <p>Track live locations, sensor inputs, geofence events, and maintenance triggers.</p>
+            </div>
+            <div class="stack-card">
+              <strong>2. Optimize</strong>
+              <p>Route, dispatch, and rebalance workloads with live demand and asset availability.</p>
+            </div>
+            <div class="stack-card">
+              <strong>3. Improve</strong>
+              <p>Reduce fuel waste, lower risk, automate compliance, and boost asset utilization.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Business model</span>
+            <h2>Recurring SaaS revenue with enterprise expansion paths.</h2>
+          </div>
+
+          <div class="model-grid">
+            <div class="model-card">
+              <h3>Subscription revenue</h3>
+              <p>Monthly recurring revenue from fleet plans, premium monitoring modules, and asset-based pricing.</p>
+            </div>
+            <div class="model-card">
+              <h3>Setup &amp; onboarding</h3>
+              <p>Implementation, migration, hardware pairing, custom geofence configuration, and team training.</p>
+            </div>
+            <div class="model-card">
+              <h3>Usage &amp; add-ons</h3>
+              <p>Advanced telematics, dashcam storage, API access, compliance waivers, and premium support tiers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Multi-user access</span>
+            <h2>Built for every role in the operation.</h2>
+          </div>
+
+          <div class="roles-grid">
+            <div class="role-card">
+              <h3>Dispatchers</h3>
+              <p>Live map, priority routing, ETA visibility, schedule coordination, and response actions.</p>
+            </div>
+            <div class="role-card">
+              <h3>Managers</h3>
+              <p>KPIs, cost analysis, fleet performance, region oversight, and exception dashboards.</p>
+            </div>
+            <div class="role-card">
+              <h3>Drivers</h3>
+              <p>Trip details, route guidance, safety coaching, HOS visibility, and app-based checklists.</p>
+            </div>
+            <div class="role-card">
+              <h3>Admins</h3>
+              <p>RBAC, user provisioning, billing, enterprise permissions, and compliance controls.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Simple pricing</span>
+            <h2>Monthly subscriptions designed to scale with your fleet.</h2>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="price-card">
+              <span class="plan">Starter</span>
+              <h3>$49<span>/month</span></h3>
+              <p>For 1 fleet, 5 users, and basic asset visibility.</p>
+              <ul>
+                <li>Up to 25 tracked assets</li>
+                <li>Live map + alerts</li>
+                <li>2 geofences</li>
+                <li>Email support</li>
+              </ul>
+              <a href="#book-demo" class="btn btn-secondary">Start trial</a>
+            </article>
+
+            <article class="price-card featured">
+              <span class="plan">Professional</span>
+              <h3>$199<span>/month</span></h3>
+              <p>For scaling operations that need dashboards, dispatch, and safety insights.</p>
+              <ul>
+                <li>Unlimited assets</li>
+                <li>Multi-user access</li>
+                <li>AI dashcam + analytics</li>
+                <li>Route optimization</li>
+              </ul>
+              <a href="#book-demo" class="btn btn-primary">Choose plan</a>
+            </article>
+
+            <article class="price-card">
+              <span class="plan">Enterprise</span>
+              <h3>Custom</h3>
+              <p>For complex fleets, compliance workflows, and multi-region operations.</p>
+              <ul>
+                <li>Custom RBAC</li>
+                <li>ERP / API integrations</li>
+                <li>Dedicated onboarding</li>
+                <li>SLAs + premium support</li>
+              </ul>
+              <a href="#book-demo" class="btn btn-secondary">Talk to sales</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="integrations" class="section alt">
+        <div class="container integration-layout">
+          <div>
+            <span class="eyebrow">Integrations</span>
+            <h2>Connect your telephony, payments, and operational stack.</h2>
+            <p>
+              TrackFlow is designed to integrate seamlessly with Twilio for SMS and voice alerts,
+              Stripe for customer billing and subscription management, and enterprise systems like ERP,
+              CRM, dispatch platforms, and service operations tools.
+            </p>
+          </div>
+
+          <div class="integration-card-grid">
+            <div class="integration-card">
+              <h3>Twilio</h3>
+              <ul>
+                <li>Driver SOS SMS</li>
+                <li>Dispatch voice calls</li>
+                <li>Two-factor user verification</li>
+                <li>Incident alert automation</li>
+              </ul>
+            </div>
+            <div class="integration-card">
+              <h3>Stripe</h3>
+              <ul>
+                <li>Recurring monthly billing</li>
+                <li>Customer portal management</li>
+                <li>Team add-ons and seats</li>
+                <li>Usage-based upgrades</li>
+              </ul>
+            </div>
+            <div class="integration-card wide">
+              <h3>Brand identity</h3>
+              <ul>
+                <li><strong>Name:</strong> TrackFlow</li>
+                <li><strong>Symbol:</strong> Circular route / signal mark with forward motion</li>
+                <li><strong>Positioning:</strong> Real-time fleet intelligence platform</li>
+                <li><strong>Model:</strong> B2B SaaS for operations, dispatch, and compliance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="book-demo" class="section cta-section">
+        <div class="container cta-box">
+          <div>
+            <span class="eyebrow">Launch faster</span>
+            <h2>Turn live fleet data into better decisions.</h2>
+          </div>
+          <a class="btn btn-primary" href="mailto:hello@trackflow.example">Book a demo</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div class="brand footer-brand">
+          <span class="brand-mark" aria-hidden="true">TF</span>
+          <span>TrackFlow</span>
+        </div>
+        <p>© 2026 TrackFlow. Real-time visibility for modern operations.</p>
       </div>
-      <ul id="track-list"></ul>
-      <p id="no-tracks" class="muted">No saved tracks yet. Press <b>Start</b> to record one.</p>
-    </section>
-
-    <footer class="muted small">
-      Location data never leaves your device — it's stored in this browser only.
-      Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.
     </footer>
-  </aside>
-
-  <div id="toast" role="status" hidden></div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="app.js"></script>
-</body>
+  </body>
 </html>

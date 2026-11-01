@@ -1,46 +1,85 @@
-# GeoTrack
+# TrackFlow
 
-A lightweight, privacy-first GPS tracking website. Open it on your phone, press **Start**, and it records your route on a live map using your browser's Geolocation API.
+TrackFlow is a real-time fleet intelligence platform for logistics, dispatch, field service, and asset operations. It combines live GPS monitoring, geofencing, telematics integration, compliance tooling, and business analytics into a single platform.
 
-**All data stays on your device** — tracks are stored in your browser's `localStorage`. There is no server, account, or analytics.
+## Business model
 
-## Features
+- SaaS subscription revenue: monthly plans by fleet size and asset count
+- Implementation and onboarding: setup, migration, custom geofences, and team training
+- Add-on modules: dashcams, compliance, advanced analytics, and premium support
+- Integrations: Twilio for messaging and voice alerts; Stripe for recurring billing and customer management
 
-- Live map (OpenStreetMap / OpenTopoMap) with your position and GPS accuracy circle
-- Start / Pause / Resume / Stop & save — pauses split the track into segments so breaks don't count
-- Live stats: distance, duration, current & average speed, altitude, accuracy, coordinates
-- Filters for poor-accuracy fixes and GPS jitter (configurable)
-- Keeps the screen awake while recording (Screen Wake Lock API, where supported)
-- Recovers an unfinished recording if the page is reloaded
-- Saved track library: show/hide on the map, rename, delete
-- Export to **GPX** or **GeoJSON**; import GPX or GeoJSON files
-- Metric or imperial units
-- Responsive: side panel on desktop, bottom sheet on mobile
+## Brand identity
 
-## Run locally
+- Name: TrackFlow
+- Symbol: a circular route/signal mark with motion in the center
+- Positioning: multi-asset tracking for modern operations teams
+- Audience: dispatchers, fleet managers, field service teams, compliance leaders, enterprise operations
 
-Geolocation requires a secure context (HTTPS or `localhost`):
+## Multi-user access
 
-```sh
-python3 -m http.server 8000
-# open http://localhost:8000
-```
+TrackFlow supports role-based, multi-user access across:
 
-## Deploy on GitHub Pages
+- Dispatchers
+- Fleet managers
+- Drivers
+- Administrators
+- Regional or department owners
 
-The included workflow (`.github/workflows/pages.yml`) publishes the site on every push to `main`.
-In the repository go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
-The site will be served at `https://<user>.github.io/tracking/`.
+## Pricing model
 
-## Notes
+- Starter: $49/month
+- Professional: $199/month
+- Enterprise: custom pricing
 
-- Browsers usually suspend web pages when the screen is off or the tab is in the background, so keep GeoTrack in the foreground while recording.
-- Only your own device's location is tracked, and only after you grant permission.
+## Integrations
 
-## Files
+- Twilio: SMS, voice alerts, SOS notifications, and user verification
+- Stripe: monthly subscription billing, seat management, and premium add-ons
 
-| File | Purpose |
-| --- | --- |
-| `index.html` | Page layout |
-| `style.css` | Styling |
-| `app.js` | Tracking, map, storage, import/export logic |
+## Product scope
+
+1. Real-Time Tracking & Spatial Monitoring
+   - Live telemetry and breadcrumb trails
+   - Geofencing with circle, polygon, and corridor boundaries
+   - Landmark and POI management
+   - Multi-asset monitoring for vehicles, trailers, equipment, and personnel
+
+2. Route Optimization & Smart Dispatching
+   - Dynamic routing based on traffic, weather, and asset constraints
+   - Nearest-asset dispatching
+   - ETA sharing and public tracking links
+
+3. Sensor & Telematics Integration
+   - OBD-II / CAN bus diagnostics
+   - Cold-chain telemetry
+   - PTO and auxiliary sensor data
+   - TPMS monitoring
+
+4. Safety & Driver Behavior Analytics
+   - Driver scorecards
+   - Dashcam and AI event detection
+   - In-cab coaching alerts
+
+5. Security & Asset Protection
+   - Anti-theft controls
+   - Jamming and tamper detection
+   - Aggressive recovery mode
+
+6. Regulatory Compliance & Administrative Controls
+   - HOS / ELD tracking
+   - IFTA reporting
+   - Digital inspection workflows
+
+7. Maintenance & Asset Lifecycle Management
+   - Preventive maintenance scheduling
+   - Work orders and cost management
+
+8. Enterprise Analytics & Integration Capabilities
+   - Custom dashboards and BI exports
+   - Open APIs and webhooks
+   - RBAC and region-based permissioning
+
+## Deployment
+
+The static site is designed for GitHub Pages publishing. It can be published directly from the repository with the existing Pages workflow.
