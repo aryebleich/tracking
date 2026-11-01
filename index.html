@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>GeoTrack</title>
+  <meta name="description" content="Record, view and export your own GPS tracks in the browser. Data stays on your device.">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%2322c55e' d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/></svg>">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="map" aria-label="Map"></div>
+
+  <aside id="panel">
+    <header class="panel-head">
+      <h1>GeoTrack</h1>
+      <span id="status" class="status idle">Idle</span>
+    </header>
+
+    <section class="controls">
+      <button id="btn-start" class="btn primary">Start</button>
+      <button id="btn-pause" class="btn" disabled>Pause</button>
+      <button id="btn-stop" class="btn danger" disabled>Stop &amp; save</button>
+    </section>
+
+    <section class="stats" aria-live="polite">
+      <div><span class="label">Distance</span><span id="s-dist" class="value">0.00 km</span></div>
+      <div><span class="label">Duration</span><span id="s-time" class="value">00:00:00</span></div>
+      <div><span class="label">Speed</span><span id="s-speed" class="value">–</span></div>
+      <div><span class="label">Avg speed</span><span id="s-avg" class="value">–</span></div>
+      <div><span class="label">Altitude</span><span id="s-alt" class="value">–</span></div>
+      <div><span class="label">Accuracy</span><span id="s-acc" class="value">–</span></div>
+      <div class="wide"><span class="label">Position</span><span id="s-pos" class="value mono">–</span></div>
+    </section>
+
+    <details class="settings">
+      <summary>Settings</summary>
+      <label class="row"><input type="checkbox" id="opt-follow" checked> Keep map centered on me</label>
+      <label class="row"><input type="checkbox" id="opt-wake" checked> Keep screen awake while tracking</label>
+      <label class="row"><input type="checkbox" id="opt-imperial"> Imperial units (mi, mph, ft)</label>
+      <label class="row col">
+        <span>Ignore fixes worse than <b id="acc-val">50</b> m</span>
+        <input type="range" id="opt-acc" min="10" max="500" step="10" value="50">
+      </label>
+      <label class="row col">
+        <span>Minimum movement between points <b id="move-val">3</b> m</span>
+        <input type="range" id="opt-move" min="0" max="50" step="1" value="3">
+      </label>
+    </details>
+
+    <section class="tracks">
+      <div class="tracks-head">
+        <h2>Saved tracks</h2>
+        <label class="btn small" title="Import a GPX or GeoJSON file">
+          Import<input type="file" id="file-import" accept=".gpx,.geojson,.json,application/gpx+xml,application/geo+json" hidden>
+        </label>
+      </div>
+      <ul id="track-list"></ul>
+      <p id="no-tracks" class="muted">No saved tracks yet. Press <b>Start</b> to record one.</p>
+    </section>
+
+    <footer class="muted small">
+      Location data never leaves your device — it's stored in this browser only.
+      Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.
+    </footer>
+  </aside>
+
+  <div id="toast" role="status" hidden></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>
